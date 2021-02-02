@@ -1,0 +1,4 @@
+http://localhost/control/index.php?url=site/login
+
+user: admin
+pswd: 123456

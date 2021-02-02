@@ -1,0 +1,408 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body{
+    font-size: 12px;
+    font-family: 'Barlow', sans-serif;
+    background-color: #f1f1f1;
+}
+
+button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    margin: 0;
+    padding: 0;   
+}
+
+.tr {
+    transition: all 200ms ease-in-out;
+}
+
+.hidden{
+    display: none!important;
+}
+
+$w: #FFFFFF;
+$gr: #C5C5C5;
+$gr2: #8a8a8a;
+$g: #1db5b1;
+$b: #02ebfe;
+$d: #202833;
+$bk: #0B0C10;
+$gr-t:#8c8c8c;
+$gr-tp: #999999;
+$background: #f1f1f1;
+$hover: rgba(225, 225, 225, 0.5);
+
+.left{
+    width: 40%;
+    height: 100vh;
+    background-image: url(../assets/pexels-brett-sayles-4716292.jpg);
+    background-size: cover;
+    background-position: left;
+    position: absolute;
+    left: 0;
+}
+
+.right{
+    // background-color: red;
+    width: 60%;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.contenedor{
+    margin: 0 auto;
+    text-align: center;
+
+    a:hover{
+        color: $g;
+    }
+}
+
+.logo{
+    width: 250px;
+    height: 50px;
+    margin: 0 auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../assets/Logo-Bluebox.svg);
+    margin-bottom: 20px;
+}
+
+.login-box {
+    background-color: $d;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+    position: relative;
+
+    p{
+        background-color: $g;
+        color: $d;
+        text-transform: uppercase;
+        font-size: 16px;
+        padding: 10px 0;
+        font-weight: 400;
+        position: relative;
+    }
+
+    .input{
+        background-color: transparent;
+        width: 70%;
+        height: 30px;
+        margin: 20px auto;
+        border: 1px solid $w;
+        border-radius: 2px;
+        position: relative;
+    }
+
+    input{
+        background-color: transparent;
+        display: inline-block;
+        height: 100%;
+        color: $w;
+
+        &::placeholder{
+            color: $w;
+        }
+    }
+
+    input[type=email]{
+        width: calc(100% - 30px);
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
+        outline: none;
+    }
+
+    input[type=password]{
+        @extend input[type=email];
+    }
+}
+
+.i-form{
+    background-color: transparent;
+    width: 30px;
+    height: 28px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px;
+    position: absolute;
+    left: 0;
+}
+
+.i-user{
+    background-image: url(../assets/user.svg);
+}
+
+.i-lock{
+    background-image: url(../assets/lock.svg);
+}
+
+.btn-p{
+    background-color: $g!important;
+    color: $d;
+    margin-bottom: 30px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    height: 30px!important;
+    cursor: pointer;
+}
+
+///////////////////////////////////////
+///////////////DASHBOARD///////////////
+///////////////////////////////////////
+
+.top-bar{
+    width: 100%;
+    height: 60px;
+    background-color: $d;
+    position: relative;
+}
+
+.logo-w{
+    @extend .logo;
+    margin: initial;
+    margin: 0 10px;
+    width: 180px;
+    height: 100%;
+    background-image: url(../assets/logo_blanco.svg);
+    display: inline-block;
+}
+
+.menu-burger{
+    background-image: url(../assets/menuburger_blue.svg);
+    width: 60px;
+    height: 100%;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    cursor: pointer;
+
+    &.active{
+        background-color: $background;
+        background-image: url(../assets/menuburger.svg);
+    }
+}
+
+.user{
+    @extend .menu-burger;
+    background-image: url(../assets/user.svg);
+    position: absolute;
+    right: 10px;
+
+    &.active{
+        background-image: url(../assets/user_dark.svg);
+    }
+}
+
+.notifications{
+    @extend .menu-burger;
+    background-image: url(../assets/notifications_blue.svg);
+    position: absolute;
+    right: 70px;
+    background-size: 20px;
+    background-position: center 21.5px;
+
+    span{
+        background-color: $w;
+        position: absolute;
+        right:7px;
+        top: 10px;
+        border-radius: 50%;
+        border: 3px solid $d;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 5.5px 3px 5.5px;
+    }
+
+    &.empty{
+        @extend .menu-burger;
+        background-image: url(../assets/notifications.svg);
+        span{display: none;}
+    }
+}
+
+section{
+    // background-color: darksalmon;
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding: 10px 0;
+}
+
+.header{
+    // background-color: red;
+    margin: 0 20px;
+    border-bottom: 1px solid $gr2;
+}
+
+.dash-d{
+    background-image: url(../assets/home_dark.svg);
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: left 7px;
+    padding: 10px 0px 10px 25px ;
+    // background-color: yellow;       
+    text-transform: uppercase;
+    width: fit-content;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.modal{
+    @extend .tr;
+    background-color: $w;
+    width: 100%;
+    height: calc(100vh - 60px);
+    z-index: 5;
+    position: absolute;
+    top: 60px;
+    display: flex;
+}
+
+.menu{
+    @extend .tr;
+    background-color: $background;
+    width: 262px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    padding: 10px 60px 0 0;
+    display: inline-block;
+}
+
+.tab{
+    @extend .tr;
+    margin: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+
+    &:hover{
+        background-color: $w;
+    }
+
+    &.active{
+        @extend .tr;
+        color: $w;
+        background-color: $d;
+
+        p{
+            border-bottom: 1px solid transparent;
+
+            &.i-dashboard{background-image: url(../assets/home.svg);}
+            &.i-offers{background-image: url(../assets/offers_w.svg);}
+            &.i-sales{ background-image: url(../assets/cart_w.svg);}
+            &.i-payments{background-image: url(../assets/cart_w.svg);}
+            &.i-notifications{background-image: url(../assets/notifications.svg);}
+            &.i-users{background-image: url(../assets/users_w.svg);}
+        }
+    }
+    
+    p{
+        margin: 0 0 0 20px;
+        padding: 15px 0 15px 25px;
+        border-bottom: 1px solid $gr;
+        background-repeat: no-repeat; background-size: 16px; background-position: left 11px;
+
+        &.i-dashboard{background-image: url(../assets/home_dark.svg);}
+        &.i-offers{background-image: url(../assets/offers.svg);background-position: left 12px;}
+        &.i-sales{background-image: url(../assets/cart.svg);background-position: left 13px;background-size: 16.5px;}
+        &.i-payments{background-image: url(../assets/payment.svg);background-position: left 13px;}
+        &.i-notifications{background-image: url(../assets/notifications_d.svg);background-position: left 14px;background-size: 15px;}
+        &.i-users{background-image: url(../assets/users.svg);background-size: 20px;}
+    }
+}
+
+.aplications{
+    background-color: $w;
+    display: inline-block;
+    width: calc(100% - 262px);
+    height: 100%;
+
+    .header{
+        p{
+            padding: 8px 0 8px 0;
+            text-transform: uppercase;
+            color: $gr-t;
+        }
+    }
+}
+
+.apps{
+    padding-left: 20px;
+    margin-top: 20px;
+
+    li{
+        margin: 30px 0;
+        cursor: pointer;
+        font-size: 13px;
+
+        &:hover{
+            color: $g;
+        }
+    }
+}
+
+.user-open{
+    background-color: $background;
+    border: 1px solid $d;
+    border-top: none;
+    height: fit-content;
+    width: 100px;
+    padding: 10px 20px;
+    position: absolute;
+    right: 9px;
+    top: 60px;
+    cursor: pointer;
+    z-index: 20;
+
+    &:hover{
+        p{
+            color: $g;
+            background-image: url(../assets/logout_g.svg);
+        }
+    }
+
+    p{
+        background-image: url(../assets/logout.svg);
+        background-position: left;
+        padding-left: 20px;
+        background-size: 18px;
+        background-repeat: no-repeat;
+    }
+}
