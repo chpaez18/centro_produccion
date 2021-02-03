@@ -49,10 +49,10 @@ class SolicitudProduccion extends Model
 
     public function getCanDeliver(){
         $items = Capsule::select('select * from solicitud_almacen_materia_prima where id_solicitud_produccion = ?', [$this->id_solicitud_produccion]);
-        $cant_solicitudes = count($items);
+        $cant_solicitudes = count($items); 
         $items = Capsule::select('select * from solicitud_almacen_materia_prima where id_solicitud_produccion = ? and estatus = ?', [$this->id_solicitud_produccion, 1]);
         $cant_solicitudes_entregadas = count($items);
-        if($cant_solicitudes_entregadas ==  $cant_solicitudes){
+        if($cant_solicitudes_entregadas ==  $cant_solicitudes && $cant_solicitudes != 0){
             $display = 'inline';
         }else{
             $display = 'none';

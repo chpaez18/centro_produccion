@@ -21,7 +21,7 @@ use Modules\administracion\models\Inventario;
 									<th>#</th>
 									<th>Tipo</th>
 									<th>Nombre</th>
-									<th>Cantidad</th>
+									<th>Disponible</th>
 									<th>Estatus</th>
 									<th class="datatable-nosort"></th>
 								</tr>
@@ -31,7 +31,7 @@ use Modules\administracion\models\Inventario;
 									<th></th>
 									<th>Tipo</th>
 									<th>Nombre</th>
-									<th>Cantidad</th>
+									<th>Disponible</th>
 									<th>Estatus</th>
 									<th class="hidden-th"></th>
 								</tr>

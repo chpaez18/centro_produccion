@@ -24,7 +24,7 @@ class Inventario extends Model
             "tipo" => "Tipo",
             "id_producto" => "Producto",
             "id_materia_prima" => "Materia Prima",
-            "cantidad" => "Cantidad",
+            "cantidad" => "Disponible",
             "fecha_registro" => "Fecha Registro",
             "fecha_carga" => "Fecha Carga",
             "estatus" => "Estatus",
