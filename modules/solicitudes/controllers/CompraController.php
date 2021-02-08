@@ -3,6 +3,7 @@ use Modules\solicitudes\models\SolicitudCompras;
 use Modules\administracion\models\Cliente;
 use Modules\administracion\models\Producto;
 use Modules\administracion\models\Materia;
+use Modules\administracion\models\Inventario;
 use Application\Controller;
 use Application\Session;
 use Application\Router;
@@ -72,11 +73,25 @@ class CompraController extends Controller
         $data = $_POST['data'];
         $materia = new Materia();
         $id_materia_prima = $data["id_materia_prima"];
+        $cant_total = (int)$data["total"];
         $id_solicitud_almacen_materia_prima = (int) $data["id_solicitud_almacen_materia_prima"];
-        $record = SolicitudCompras::where('id_materia_prima', '=', $id_materia_prima)
+        $inventario = Inventario::where('id_materia_prima', '=', $id_materia_prima)
+        ->where('tipo', '=', 0)
+        ->where('estatus', '=', 1)
+        ->first();
+        $total = (int)$cant_total + $inventario->cantidad;
+        $inventario->cantidad = $total;
+
+        /* AÑADIR FUNCIONALIDAD PARA REGISTRAR HISTORICO Y 
+        MOVIMIENTO DEL INVENTARIO Y/O MATERIA PRIMA */
+
+        if($inventario->update()){
+            $record = SolicitudCompras::where('id_materia_prima', '=', $id_materia_prima)
             ->where('id_solicitud_almacen_materia_prima', '=', $id_solicitud_almacen_materia_prima)
-            ->update(['estatus' => 1]);
-        //var_dump($record);die();
+            ->update(['estatus' => 1, 'entregado_por'=> Session::get("cod_usuario")]);
+        }else{
+            return false;
+        }
         if($record){
             return true;
         }else{

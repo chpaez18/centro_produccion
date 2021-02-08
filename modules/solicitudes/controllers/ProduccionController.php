@@ -4,8 +4,10 @@ use Modules\solicitudes\models\SolicitudClienteItems;
 use Modules\solicitudes\models\SolicitudProduccion;
 use Modules\solicitudes\models\SolicitudAlmacenMateriaPrima;
 use Modules\solicitudes\models\SolicitudAlmacenProducto;
+use Modules\solicitudes\models\Merma;
 use Modules\administracion\models\Cliente;
 use Modules\administracion\models\Producto;
+use Modules\administracion\models\Inventario;
 use Application\Controller;
 use Application\Session;
 use Application\Router;
@@ -81,6 +83,31 @@ class ProduccionController extends Controller
             }
         }
 
+	}
+
+	public function merma(){
+		$data = $_POST['data'];
+		$cantidad_solicitud = $data["cantidad_solicitud"];
+		$cantidad_usada = $data["cantidad"];
+
+		$merma = new Merma();
+		$merma->id_producto = $data["id_producto"];
+		$merma->id_materia_prima = $data["id_materia_prima"];
+		$merma->registrado_por = Session::get("cod_usuario");
+		$merma->fecha_registro = date("Y-m-d h:i:s");
+
+		$inventario = Inventario::where('id_materia_prima', '=', $data["id_materia_prima"])
+        ->where('tipo', '=', 0)
+        ->where('estatus', '=', 1)
+        ->first();
+		$cant_devuelta = $cantidad_solicitud - $cantidad_usada;
+		$merma->cantidad_devuelta = $cant_devuelta;
+		$inventario->cantidad = $merma->cantidad_devuelta;
+		if($merma->save() && $inventario->update()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public function view($id){
